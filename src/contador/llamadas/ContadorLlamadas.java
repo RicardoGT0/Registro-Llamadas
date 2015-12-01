@@ -75,6 +75,8 @@ public class ContadorLlamadas extends JApplet {
     }
     
     Tiempo t = new Tiempo();
+    int state = 0;
+    
     private void createScene() {
         Button btn = new Button();
         btn.setText("Inicia llamada");
@@ -82,16 +84,15 @@ public class ContadorLlamadas extends JApplet {
             
             @Override
             public void handle(ActionEvent event) {
-                if(t.getSeñal()!=0){
+                if(state==0){
                     t.getHora(); //Hora inicial 
-                    t.setSeñal(0);  //se asigna señal=0 para poder ejecutar el contador
                     t.Contar();
                     btn.setText(t.getHora());
+                    state=1;
                 }else{
-                    t.setSeñal(1);  // señal=1 es para parar el contador
-                    t.getDuracion();   //se obtiene la duracion del ultimo contador 
+                    t.getSegundos();
                     t.getHora();
-                    btn.setText("Fin llamada = "+ t.getDuracion());
+                    btn.setText("Fin llamada = "+ t. getSegundos());
                 }
                                         
             }
