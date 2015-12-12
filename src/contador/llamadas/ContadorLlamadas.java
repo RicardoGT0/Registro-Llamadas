@@ -24,7 +24,7 @@ import javax.swing.UIManager;
  * @author Thunder
  */
 public class ContadorLlamadas extends JApplet {
-    
+
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
@@ -34,31 +34,31 @@ public class ContadorLlamadas extends JApplet {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
                 } catch (Exception e) {
                 }
-                
+
                 JFrame frame = new JFrame("JavaFX 2 in Swing");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
+
                 JApplet applet = new ContadorLlamadas();
                 applet.init();
-                
+
                 frame.setContentPane(applet.getContentPane());
-                
+
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
-                
+
                 applet.start();
             }
         });
     }
-    
+
     @Override
     public void init() {
         fxContainer = new JFXPanel();
@@ -66,40 +66,44 @@ public class ContadorLlamadas extends JApplet {
         add(fxContainer, BorderLayout.CENTER);
         // create JavaFX scene
         Platform.runLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 createScene();
             }
         });
     }
-    
+
     Tiempo t = new Tiempo();
     int state = 0;
-    
+    Respaldo r =new Respaldo("Backup.txt");
+
     private void createScene() {
         Button btn = new Button();
         btn.setText("Inicia llamada");
         btn.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
-                if(state==0){
+                if (state == 0) {
                     t.getHora(); //Hora inicial 
-                    t.Contar();
+                    t.Contar();//empieza contador
                     btn.setText(t.getHora());
-                    state=1;
-                }else{
-                    t.getSegundos();
+                    state = 1;
+                } else {
                     t.getHora();
-                    btn.setText("Fin llamada = "+ t. getSegundos());
+                    btn.setText("Duracion = " + String.valueOf(t.getDuracion()));
+                    t.Detener();//Detiene contador
+                    state = 0;
+                    
+                    r.escribir("Backup.txt");
                 }
-                                        
+
             }
         });
         StackPane root = new StackPane();
         root.getChildren().add(btn);
         fxContainer.setScene(new Scene(root));
     }
-    
+
 }

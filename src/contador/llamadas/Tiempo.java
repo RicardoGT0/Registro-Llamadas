@@ -10,42 +10,60 @@ import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Tiempo extends TimerTask{
+public class Tiempo extends TimerTask {
 
     private String duracion = "";
     private String fecha = "";
-    private Timer timer = new Timer(); 
-    private int segundos=0;
-    private String hora="";
+    private Timer timer = new Timer();
+    private static int segundos = 0;
+    private String hora = "";
 
     @Override
     public void run() {
         segundos++;
         System.out.println("segundo: " + segundos);
     }
-    
+
     //Crea un timer, inicia segundos a 0 y comienza a contar
-    public void Contar()
-    {
-        this.segundos=0;
+    public void Contar() {
+        this.segundos = 0;
         timer = new Timer();
         timer.schedule(new Tiempo(), 0, 1000);
     }
+
     //Detiene el contador
     public void Detener() {
         timer.cancel();
     }
+
     //Metodo que retorna los segundos transcurridos
-    public int getSegundos()
-    {
-        return this.segundos;
+    public String getDuracion() {
+        int seg = segundos;
+        int min = 0;
+        int hr = 0;
+
+        if (seg >= 60) {
+            min = seg / 60;
+            seg = seg - (min * 60);
+        }
+        if (min >= 60) {
+            hr = min / 60;
+            min = min - (hr * 60);
+        }
+
+        String s = Integer.toString(seg);
+        String m = Integer.toString(min);
+        String h = Integer.toString(hr);
+
+        duracion = h + ":" + m + ":" + s;
+        return duracion;
     }
-    
+
     public String getHora() {
-        hora=horaActual();
+        hora = horaActual();
         return hora;
     }
-    
+
     public String getFecha() {
         fecha = fechaActual();
         return fecha;
@@ -76,6 +94,4 @@ public class Tiempo extends TimerTask{
         return (String.valueOf(dia) + "/" + String.valueOf(mes) + "/" + String.valueOf(annio));
     }
 
-    
-    
 }
