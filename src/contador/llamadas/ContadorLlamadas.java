@@ -78,35 +78,50 @@ public class ContadorLlamadas extends JApplet {
 
     Tiempo t = new Tiempo();
     int state = 0;
-    Respaldo r =new Respaldo("Backup.txt");
+    Respaldo r = new Respaldo("Backup.txt");
+    
     List<llamada> memoria = new ArrayList<llamada>();
+    String empresa = "";
+    String e_s = "";
+    String fecha = "";
+    String h_inicial = "";
+    String duracion = "";
+    String h_final = "";
 
     private void createScene() {
         Button btn = new Button();
         btn.setText("Inicia llamada");
         btn.setOnAction(new EventHandler<ActionEvent>() {
-        
+
             @Override
             public void handle(ActionEvent event) {
+
                 if (state == 0) {
-                    t.getHora(); //Hora inicial 
+                    h_inicial = t.getHora(); //Hora inicial 
+                    fecha = t.getFecha();
                     t.Contar();//empieza contador
                     btn.setText(t.getHora());
                     state = 1;
                 } else {
-                    t.getHora();
+                    h_final = t.getHora();
                     btn.setText("Duracion = " + String.valueOf(t.getDuracion()));
+                    duracion = String.valueOf(t.getDuracion());
                     t.Detener();//Detiene contador
                     state = 0;
-                    
+                    llamada l = new llamada(empresa, e_s, fecha, h_inicial, duracion, h_final);
+                    memoria.add(l);
                     r.escribir(memoria);
                 }
 
             }
-        });
+        }
+        );
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        fxContainer.setScene(new Scene(root));
+
+        root.getChildren()
+                .add(btn);
+        fxContainer.setScene(
+                new Scene(root));
     }
 
 }
