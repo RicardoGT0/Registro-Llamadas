@@ -7,6 +7,8 @@ package contador.llamadas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -77,12 +79,13 @@ public class ContadorLlamadas extends JApplet {
     Tiempo t = new Tiempo();
     int state = 0;
     Respaldo r =new Respaldo("Backup.txt");
+    List<llamada> memoria = new ArrayList<llamada>();
 
     private void createScene() {
         Button btn = new Button();
         btn.setText("Inicia llamada");
         btn.setOnAction(new EventHandler<ActionEvent>() {
-
+        
             @Override
             public void handle(ActionEvent event) {
                 if (state == 0) {
@@ -96,7 +99,7 @@ public class ContadorLlamadas extends JApplet {
                     t.Detener();//Detiene contador
                     state = 0;
                     
-                    r.escribir("Backup.txt");
+                    r.escribir(memoria);
                 }
 
             }

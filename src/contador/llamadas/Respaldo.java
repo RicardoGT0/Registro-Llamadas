@@ -10,33 +10,43 @@ package contador.llamadas;
  * @author rgonzalez
  */
 import java.io.*;
+import java.util.List;
 
 public class Respaldo {
-    
+
     private static File f;
-    
+
     public Respaldo(String nombreArchivo) {
         f = new File(nombreArchivo);
     }
 
-    
-    
-    public void escribir(String linea) {
+    public void escribir(List<llamada> memoria) {
 
-        try { 
+        try {
 
             FileWriter w = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(w);
             PrintWriter wr = new PrintWriter(bw);
 
-            wr.append(" - y aqui continua"); //concatenamos en el archivo sin borrar lo existente
-                        
+            for(llamada l:memoria){
+                String ltext="";
+                ltext=l.getEmpresa()+l.getE_s()+l.getFecha()+l.getH_inicial()+l.getDuracion()+l.getH_final();
+                 wr.append(ltext);
+            }
+             
             wr.close();
             bw.close();
 
         } catch (IOException e) {
-            
+
         }
     }
 
-    }
+}
+    
+   
+           
+           
+   
+
+
