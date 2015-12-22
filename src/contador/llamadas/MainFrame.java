@@ -144,6 +144,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void iniciollamada() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButton3.setEnabled(true);
+                
         h_inicial = t.getHora(); //Hora inicial 
         fecha = t.getFecha();
         t.Contar();//empieza contador
@@ -158,11 +164,11 @@ public class MainFrame extends javax.swing.JFrame {
         empresa = jTextField1.getText();
 
         if (empresa.isEmpty() && e_s.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Falta llenar El nombre de la empresa y seleccionar el tipo de llamda(Entrante o Saliente)");
+            JOptionPane.showMessageDialog(null, "Falta llenar el nombre de la empresa y seleccionar el tipo de llamada(Entrante o Saliente)");
         }else if (empresa.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Falta llenar El nombre de la empresa");
+            JOptionPane.showMessageDialog(null, "Falta llenar el nombre de la empresa");
         } else if (e_s.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Falta seleccionar el tipo de llamda(Entrante o Saliente)");
+            JOptionPane.showMessageDialog(null, "Falta seleccionar el tipo de llamada(Entrante o Saliente)");
         }  else {
             t.Detener();//Detiene contador
             jButton1.setText("Iniciar llamada");
