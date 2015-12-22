@@ -30,9 +30,8 @@ public class Respaldo {
 
             for(llamada l:memoria){
                 String ltext="";
-                //ltext=l.getEmpresa()+"|"+l.getE_s()+"|"+l.getFecha()+"|"+l.getH_inicial()+"|"+l.getH_final()+"|"+l.getDuracion();
                 ltext=l.getTickat()+"\t"+l.getEmpresa()+"\t"+l.getE_s()+"\t"+l.getFecha()+"\t"+l.getH_inicial()+"\t"+l.getH_final()+"\t"+l.getDuracion();
-                 wr.println(ltext+"\n");
+                wr.println(ltext);
             }
              
             wr.close();
