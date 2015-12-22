@@ -7,6 +7,9 @@ package contador.llamadas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JPanel;
 
 /**
  *
@@ -134,23 +137,44 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         if (state == 0) {
-            h_inicial = t.getHora(); //Hora inicial 
-            fecha = t.getFecha();
-            t.Contar();//empieza contador
-            jButton1.setText("Parar llamada");
-            state = 1;
+            iniciollamada();
         } else {
-            h_final = t.getHora();
-            jButton1.setText("Iniciar llamada");
-            duracion = String.valueOf(t.getDuracion());
+            finllamada();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void iniciollamada() {
+        h_inicial = t.getHora(); //Hora inicial 
+        fecha = t.getFecha();
+        t.Contar();//empieza contador
+        jButton1.setText("Parar llamada");
+        state = 1;
+    }
+
+    private void finllamada() {
+        duracion = String.valueOf(t.getDuracion());
+        h_final = t.getHora();
+        ticket = jTextField2.getText();
+        empresa = jTextField1.getText();
+
+        if (empresa.isEmpty() && e_s.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Falta llenar El nombre de la empresa y seleccionar el tipo de llamda(Entrante o Saliente)");
+        }else if (empresa.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Falta llenar El nombre de la empresa");
+        } else if (e_s.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Falta seleccionar el tipo de llamda(Entrante o Saliente)");
+        }  else {
             t.Detener();//Detiene contador
+            jButton1.setText("Iniciar llamada");
             state = 0;
-            empresa = jTextField1.getText();
-            llamada l = new llamada(ticket, empresa, e_s, fecha, h_inicial, duracion, h_final);
+
+            llamada l;
+            l = new llamada(ticket, empresa, e_s, fecha, h_inicial, duracion, h_final);
             memoria.add(l);
             r.escribir(memoria);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
