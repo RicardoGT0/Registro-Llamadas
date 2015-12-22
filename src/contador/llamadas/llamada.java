@@ -17,9 +17,10 @@ class llamada {
     private String h_inicial;
     private String duracion;
     private String h_final;
+    private String tickat;
 
-
-    public llamada(String empresa, String e_s, String fecha, String h_inicial, String duracion, String h_final) {
+    public llamada(String ticket, String empresa, String e_s, String fecha, String h_inicial, String duracion, String h_final) {
+        this.tickat= ticket;
         this.empresa = empresa;
         this.e_s = e_s;
         this.fecha = fecha;
@@ -28,6 +29,13 @@ class llamada {
         this.h_final = h_final;
     }
     
+     public String getTickat() {
+        return tickat;
+    }
+
+    public void setTickat(String tickat) {
+        this.tickat = tickat;
+    }
     
     public String getEmpresa() {
         return empresa;
