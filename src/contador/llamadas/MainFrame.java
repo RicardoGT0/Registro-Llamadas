@@ -19,7 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private Tiempo t = new Tiempo();
     private int state = 0;
-    private Respaldo r = new Respaldo("Backup.txt");
+    private Respaldo r = new Respaldo("Resumen llamadas.txt");
     private List<llamada> memoria = new ArrayList<llamada>();
     private String ticket = "";
     private String empresa = "";
@@ -144,12 +144,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void iniciollamada() {
-        jTextField1.setText("");
-        jTextField2.setText("");
+
+        ticket = "";
+        empresa = "";
+        e_s = "";
+        fecha = "";
+        h_inicial = "";
+        duracion = "";
+        h_final = "";
+
         jButton1.setEnabled(true);
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
-                
+
         h_inicial = t.getHora(); //Hora inicial 
         fecha = t.getFecha();
         t.Contar();//empieza contador
@@ -165,11 +172,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (empresa.isEmpty() && e_s.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Falta llenar el nombre de la empresa y seleccionar el tipo de llamada(Entrante o Saliente)");
-        }else if (empresa.isEmpty()) {
+        } else if (empresa.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Falta llenar el nombre de la empresa");
         } else if (e_s.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Falta seleccionar el tipo de llamada(Entrante o Saliente)");
-        }  else {
+        } else {
             t.Detener();//Detiene contador
             jButton1.setText("Iniciar llamada");
             state = 0;
